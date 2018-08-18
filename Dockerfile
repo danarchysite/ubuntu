@@ -6,8 +6,7 @@
 # > docker build -t danarchy/ubuntu:latest .
 #
 # - run a container named as image
-# > docker run -t -i -h image --name image --rm -e EUID=`id -u` \
-#              danarchy/ubuntu:latest /bin/bash -l
+# > docker run -t -i -h image --name image --rm -e EUID=`id -u` danarchy/ubuntu:latest /bin/bash -l
 #
 # \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\////////////////////////////////////////
 
@@ -15,15 +14,18 @@ FROM ubuntu:18.04
 
 MAINTAINER danarchy.site <dnrk@protonmail.com>
 
-RUN apt upgrade
-RUN apt install tmux python3 wget curl git vim htop rclone
+RUN apt update
+RUN apt install -y rsync tmux python3 wget curl git vim htop rclone
 
 RUN wget https://yt-dl.org/downloads/latest/youtube-dl \
-        -O /usr/local/bin/youtube-dl && 
-        chmod a+rx /usr/local/bin/youtube-dl
+       -O /usr/local/bin/youtube-dl && \
+       chmod a+rx /usr/local/bin/youtube-dl
 
-COPY dotfiles/ /root/
-RUN ln -s /root/.bashrc /root/.profile
+COPY dotfiles/ /opt/dotfiles/
+RUN ls -lsa /opt/dotfiles/
+RUN find /opt/dotfiles/ -type f -maxdepth 1 -exec ln -s {} ~root/ \; > /dev/null 2>&1
+RUN ln -s /opt/dotfiles/.vim ~root/
+RUN echo ". /opt/dotfiles/.danarchy" >> /root/.profile
 
 RUN echo "root:toor" | chpasswd
 
