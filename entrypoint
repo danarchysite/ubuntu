@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+
+echo "nameserver 1.1.1.1" >  /etc/resolv.conf
+echo "nameserver 1.0.0.1" >> /etc/resolv.conf
+
+HUSERNAME=${ENV_USER:-user}
+HOSTUID=${ENV_USER_UID:-9999}
+
+adduser -s /bin/bash -u ${HOSTUID} -D ${HUSERNAME} > /dev/null 2>&1
+echo "${HUSERNAME}    ALL=(ALL) ALL" >> /etc/sudoers
+
+cp /root/.* /home/${HUSERNAME}/ > /dev/null 2>&1
+cp -R /root/.vim /home/${HUSERNAME}/ > /dev/null 2>&1
+rm -f /home/${HUSERNAME}/.profile
+ln -s /home/${HUSERNAME}/.bashrc /home/${HUSERNAME}/.profile
+chown -R ${HUSERNAME}:${HUSERNAME} /home/${HUSERNAME}
+
+echo "${HUSERNAME}:resu" | chpasswd > /dev/null 2>&1
+su - ${HUSERNAME}
+cd ~ && date
