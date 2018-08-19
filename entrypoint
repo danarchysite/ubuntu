@@ -4,7 +4,7 @@ echo "nameserver 1.1.1.1" >  /etc/resolv.conf
 echo "nameserver 1.0.0.1" >> /etc/resolv.conf
 
 HOST_USERNAME=${ENV_USER:-user}
-HOST_USERID=${ENV_USER_UID:-9999}
+HOST_USERID=${ENV_USER_UID:-0}
 
 useradd -m -s /bin/bash -u ${HOST_USERID} ${HOST_USERNAME}
 

@@ -6,7 +6,7 @@
 # > docker build -t danarchy/ubuntu:latest .
 #
 # - run a container named as image
-# > docker run -t -i -h image --name image --rm -e EUID=`id -u` danarchy/ubuntu:latest /bin/bash -l
+# > docker run -t -i -h image --name image --rm -e ENV_USER_UID=`id -u` danarchy/ubuntu:latest /bin/bash -l
 #
 # \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\////////////////////////////////////////
 
@@ -15,7 +15,7 @@ FROM ubuntu:18.04
 MAINTAINER danarchy.site <dnrk@protonmail.com>
 
 RUN apt update
-RUN apt install -y rsync tmux python3 wget curl git vim htop rclone
+RUN apt install -y rsync tmux python python3 wget curl git vim htop rclone
 
 RUN wget https://yt-dl.org/downloads/latest/youtube-dl \
        -O /usr/local/bin/youtube-dl && \
