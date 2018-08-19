@@ -15,7 +15,8 @@ FROM ubuntu:18.04
 MAINTAINER danarchy.site <dnrk@protonmail.com>
 
 RUN apt update
-RUN apt install -y rsync tmux python python3 wget curl git vim htop rclone
+RUN apt install -y rsync tmux python python3 wget curl git vim htop rclone \
+                   ffmpeg
 
 RUN wget https://yt-dl.org/downloads/latest/youtube-dl \
        -O /usr/local/bin/youtube-dl && \
