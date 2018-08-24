@@ -16,7 +16,7 @@ MAINTAINER danarchy.site <dnrk@protonmail.com>
 
 RUN apt update
 RUN apt install -y rsync tmux python python3 wget curl git vim htop rclone \
-                   ffmpeg sudo gpg htop python
+                   ffmpeg sudo gpg htop python inetutils-ping
 
 RUN wget https://yt-dl.org/downloads/latest/youtube-dl \
        -O /usr/local/bin/youtube-dl && \
